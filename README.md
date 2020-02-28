@@ -55,4 +55,13 @@ __The total number of candidates born in 1965 is 1,550__
 
 <img alt = "query_mentor" src = https://github.com/pegkhiev/PH_Analysis/blob/master/Challenge/query_candidates.png>
 
-<img alt = "title_bydate" src = https://github.com/pegkhiev/PH_Analysis/blob/master/Challenge/title_by_date.png>
+<img alt = "mentor" src = https://github.com/pegkhiev/PH_Analysis/blob/master/Challenge/mentor.png>
+
+## Further Analysis 
+
+1) The above retirement list includes those who have already left the companies, so the extra condition of ensuring that they are still presently hired should be included.  This can be done by just simply adding the extra condition in the "retirement" query.  This would also remove the step of deduplicating the rows because only the present titles will be included already. 
+
+2) Another analysis is to apply conditions to the mentor candidates table - e.g. including only employees of senior level in the mentorship candidates pool. 
+
+
+
