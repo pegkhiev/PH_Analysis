@@ -41,7 +41,7 @@ __The total number of employees after de-duplication is 41,380.__
 
 ### Titles ordered by date 
 
-To find out total number of titles for the full retirement list in descending order by their from_date, the query is grouped by title. I performed a count(title), and then MAX(from_date) aggregration to determine the first appearance of the title.  Then the table is ordered by descending date so that the resulting table is in descending order by date. 
+To find out total number of titles for the full retirement list in descending order by their from_date, the query is grouped by title. I performed a count(title), and then MAX(from_date) aggregration to determine the latest date of the title.  Then the table is ordered by descending date so that the resulting table is in descending order by date. 
 
 __The highest numbers are in Engineering department.  A total of 20,793 retiring employees are in Engineering department (Senior Engineers, Engineers, Assistant Engineers)__
 
