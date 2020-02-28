@@ -13,17 +13,17 @@ ON (ti.emp_no = s.emp_no)
 WHERE e.birth_date BETWEEN '1952-01-01' AND '1955-12-31'
 AND e.hire_date BETWEEN '1985-01-01' AND '1988-12-31'
 
---determine duplicates using emp_no as identifier
+--determine if there are duplicates using 
+-- unique emp_no as identifier 
+--(as names can be duplicated)
 SELECT emp_no,
 	count(*)
-INTO duplicate_names
+--INTO duplicate_numbers
 FROM retirement_title_salary
 GROUP BY emp_no
 HAVING count(*)>1
 
-SELECT * FROM duplicate_names
-
--- Select duplicates and 
+-- Select duplicates based on emp_no
 --choose only the latest from_date
 SELECT rts.emp_no, rts.first_name, rts.last_name,
 	rts.from_date, rts.title, rts.salary 
@@ -37,23 +37,24 @@ INTO retirement_no_duplicates
 	 FROM retirement_title_salary) rts
 	 WHERE rn=1;
 
---Order de-duplicated table by from_date
-SELECT emp_no, first_name, last_name,
-	 from_date, title, salary
-INTO retirement_by_date
+-- Title frequency and ordered by from_date
+SELECT title, count(title), 
+	MAX(from_date) AS from_date
+INTO titles_by_date
 FROM retirement_no_duplicates
+GROUP BY title
 ORDER BY from_date DESC
 
---Checking the tables 
-SELECT * FROM retirement_no_duplicates
-SELECT * FROM retirement_by_date
-
---Do count of title frequency
-SELECT title, count(*)
-INTO retirement_title
-FROM retirement_by_date
-GROUP BY title
-
-SELECT title, count(*)
-FROM retirement_no_duplicates
-GROUP BY title
+--Decide mentor candidates
+SELECT e.emp_no, e.first_name, 
+	e.last_name, ti.title, ti.from_date, 
+	ti.to_date, s.salary
+INTO mentor_candidates
+FROM employees AS e
+INNER JOIN titles AS ti
+ON (e.emp_no = ti.emp_no)
+INNER JOIN salaries AS s
+ON (ti.emp_no = s.emp_no)
+WHERE e.birth_date BETWEEN '1965-01-01' 
+	AND '1965-12-31'
+AND ti.to_date = '9999-01-01';
