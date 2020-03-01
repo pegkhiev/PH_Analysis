@@ -7,6 +7,8 @@ The project required use of ERD to determine the relationship of the various csv
 - How to de-duplicate the names due to people changing titles 
 - How many people born in 1965 are candidates for mentorship program 
 
+### Note to Grader: The full queries are included in the folder "Challenge/Query" - the README only includes PARTS of the full query, thank you. 
+
 ## ERD 
 
 From the ERD, it can be seen that for dept_managers and dept_emp tables, __neither the dept_no nor emp_no alone can be primary keys because they are not unique due to employees moving between departments__.  Therefore the combination of dept_no and emp_no are combined to be primary keys.
@@ -41,7 +43,9 @@ __The total number of employees after de-duplication is 41,380.__
 
 ### Titles ordered by date 
 
-To find out total number of titles for the full retirement list in descending order by their from_date, the query is grouped by title. I performed a count(title), and then MAX(from_date) aggregration to determine the first appearance of the title.  Then the table is ordered by descending date so that the resulting table is in descending order by date. 
+To find out total number of titles for the full retirement list in descending order by their from_date, the query is grouped by title. I performed a count(title), and then MAX(from_date) aggregration to determine the latest date of the title.  Then the table is ordered by descending date so that the resulting table is in descending order by date. 
+
+__The highest numbers are in Engineering department.  A total of 20,793 retiring employees are in Engineering department (Senior Engineers, Engineers, Assistant Engineers)__
 
 <img alt = "query_titlebydate" src = https://github.com/pegkhiev/PH_Analysis/blob/master/Challenge/query_titlebydate.png>
 
@@ -55,4 +59,14 @@ __The total number of candidates born in 1965 is 1,550__
 
 <img alt = "query_mentor" src = https://github.com/pegkhiev/PH_Analysis/blob/master/Challenge/query_candidates.png>
 
-<img alt = "title_bydate" src = https://github.com/pegkhiev/PH_Analysis/blob/master/Challenge/title_by_date.png>
+<img alt = "mentor" src = https://github.com/pegkhiev/PH_Analysis/blob/master/Challenge/mentor.png>
+
+## Further Analysis 
+
+1) The above retirement list includes those who have already left the companies, so the extra condition of ensuring that they are still presently hired should be included.  This can be done by just simply adding the extra condition in the "retirement" query.  This would also remove the step of deduplicating the rows because only the present titles will be included already. 
+
+2) Another analysis is to apply conditions to the mentor candidates table - e.g. including only employees of senior level in the mentorship candidates pool, or only employees in Engineering, as Engineering is the most affected department with the most people retiring. 
+
+
+
+
