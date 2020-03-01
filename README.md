@@ -23,7 +23,7 @@ The question asked to create a new query containing emp_no, first and last name,
 
 __Number of employees INCLUDING duplicated rows is 65,427.__
 
-### Note: This FULL RETIREMENT LIST does not take into account the current employment to_date, because the challenge question  so some employees could have already left the company.  Therefore this number is only accurate according to the CHALLENGE question, but is NOT accurate in excluding those who have already left. 
+### Note: This FULL RETIREMENT LIST does not take into account the current employment to_date, because the challenge question didn't specify that. So some employees could have already left the company.  Therefore this number is only accurate according to the CHALLENGE question, but is NOT accurate in excluding those who have already left. 
 
 The query used is a simple join from employees table and titles table, and applying conditions of birth_date and hire_date. A sample of the output is seen below showing duplicated rows
 
@@ -39,7 +39,7 @@ First the sub-query is to apply row_number() for emp_no that are partitioned and
 
 __The total number of employees after de-duplication is 41,380.__
 
-### Note: However as the FULL RETIREMENT LIST does not take into account the employment date, so even after the deduplication, some employees could have already left the company.  Therefore this number is only accurate as to deduplicating "full retirement list", but is NOT accurate in excluding those who have already left. 
+### Note: However as the FULL RETIREMENT LIST does not take into account the employment date, so even after the deduplication, some employees could have already left the company.  Therefore this number is only accurate as to deduplicating "full retirement list", but is NOT accurate in excluding those who have already left. This is included in my Further Analysis section. 
 
 <img alt = "query_deduplication" src = https://github.com/pegkhiev/PH_Analysis/blob/master/Challenge/query_deduplication.png>
 
@@ -49,7 +49,7 @@ __The total number of employees after de-duplication is 41,380.__
 
 To find out total number of titles for the full retirement list in descending order by their from_date, the query is grouped by title. I performed a count(title), and then MAX(from_date) aggregration to determine the latest date of the title.  Then the table is ordered by descending date so that the resulting table is in descending order by date. 
 
-__The highest numbers are in Engineering department.  A total of 20,793 retiring employees are in Engineering department (Senior Engineers, Engineers, Assistant Engineers)__
+__The highest numbers are in Engineering department.__
 
 ### Again, this list is derived from the above list.  Therefore the number also includes the ones who have already LEFT the company. 
 
