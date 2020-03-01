@@ -7,6 +7,8 @@ The project required use of ERD to determine the relationship of the various csv
 - How to de-duplicate the names due to people changing titles 
 - How many people born in 1965 are candidates for mentorship program 
 
+### Note to Grader: The full queries are included in the folder "Challenge/Query" - the README only includes PARTS of the full query, thank you. 
+
 ## ERD 
 
 From the ERD, it can be seen that for dept_managers and dept_emp tables, __neither the dept_no nor emp_no alone can be primary keys because they are not unique due to employees moving between departments__.  Therefore the combination of dept_no and emp_no are combined to be primary keys.
