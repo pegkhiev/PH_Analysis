@@ -23,6 +23,8 @@ The question asked to create a new query containing emp_no, first and last name,
 
 __Number of employees INCLUDING duplicated rows is 65,427.__
 
+### Note: This FULL RETIREMENT LIST does not take into account the current employment to_date, because the challenge question  so some employees could have already left the company.  Therefore this number is only accurate according to the CHALLENGE question, but is NOT accurate in excluding those who have already left. 
+
 The query used is a simple join from employees table and titles table, and applying conditions of birth_date and hire_date. A sample of the output is seen below showing duplicated rows
 
 <img alt = "query1" src = https://github.com/pegkhiev/PH_Analysis/blob/master/Challenge/query_retirement.png>
@@ -31,21 +33,25 @@ The query used is a simple join from employees table and titles table, and apply
 
 ## De-duplicated Retirement List 
 
-To deduplicate the rows, the following query is used.  This is using a SELECT-OVER-PARTION BY query.  For the PARTITION BY function, emp_no is used because names can be the same for two different employees, but only emp_no is unique. 
+To deduplicate the rows, the following query is used.  This is using a SELECT-OVER-PARTION BY query.  For the PARTITION BY function, __emp_no__ is used because names can be the same for two different employees, but only emp_no is unique. 
 
 First the sub-query is to apply row_number() for emp_no that are partitioned and ordered by their from_date in descending order, along with other columns. Therefore the latest date of the employee's employment is the first row number.  After the sub-query, the query is to select only the rows where the row_number is 1 for each emp_no.  This way only the most present title is chosen and removing the de-duplicated rows. 
 
 __The total number of employees after de-duplication is 41,380.__
 
+### Note: However as the FULL RETIREMENT LIST does not take into account the employment date, so even after the deduplication, some employees could have already left the company.  Therefore this number is only accurate as to deduplicating "full retirement list", but is NOT accurate in excluding those who have already left. 
+
 <img alt = "query_deduplication" src = https://github.com/pegkhiev/PH_Analysis/blob/master/Challenge/query_deduplication.png>
 
 <img alt = "deduplicated_table" src = https://github.com/pegkhiev/PH_Analysis/blob/master/Challenge/deduplicated_retirement.png>
 
-### Titles ordered by date 
+## Titles ordered by date 
 
 To find out total number of titles for the full retirement list in descending order by their from_date, the query is grouped by title. I performed a count(title), and then MAX(from_date) aggregration to determine the latest date of the title.  Then the table is ordered by descending date so that the resulting table is in descending order by date. 
 
 __The highest numbers are in Engineering department.  A total of 20,793 retiring employees are in Engineering department (Senior Engineers, Engineers, Assistant Engineers)__
+
+### Again, this list is derived from the above list.  Therefore the number also includes the ones who have already LEFT the company. 
 
 <img alt = "query_titlebydate" src = https://github.com/pegkhiev/PH_Analysis/blob/master/Challenge/query_titlebydate.png>
 
@@ -55,7 +61,7 @@ __The highest numbers are in Engineering department.  A total of 20,793 retiring
 
 The question asked how many employees are candidates for mentorship. The condition is that they must be born in 1965.  As all retirees are born between 1952-1955, NONE of them would qualify.  Therefore the query goes back to the employees table, and joined with titles table, applying the condition of birth_date in 1965. 
 
-__The total number of candidates born in 1965 is 1,550__ 
+__The total number of candidates born in 1965 is 1,549__ 
 
 <img alt = "query_mentor" src = https://github.com/pegkhiev/PH_Analysis/blob/master/Challenge/query_candidates.png>
 
