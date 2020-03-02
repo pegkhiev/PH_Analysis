@@ -1,5 +1,3 @@
-
-
 -- Creating tables for PH-EmployeeDB
 CREATE TABLE departments(dept_no VARCHAR(4) NOT NULL,
 				dept_name VARCHAR(40) NOT NULL,
@@ -57,7 +55,8 @@ CREATE TABLE titles (
 
 --PART 1
 -- Number of [titles] Retiring
--- JOIN Employees and titles tables
+-- Conditions: born between 1952-55, 
+-- hired between 1982-1985
 SELECT e.emp_no, e.first_name, 
 	e.last_name, ti.title, ti.from_date,
 	s.salary
@@ -70,7 +69,6 @@ ON (ti.emp_no = s.emp_no)
 WHERE e.birth_date BETWEEN '1952-01-01' AND '1955-12-31'
 AND e.hire_date BETWEEN '1985-01-01' AND '1988-12-31'
 
-
 --determine if there are duplicates using 
 -- unique emp_no as identifier 
 --(as names can be duplicated)
@@ -81,9 +79,10 @@ FROM retirement_title_salary
 GROUP BY emp_no
 HAVING count(*)>1
 
-
+-- Deduplicating people with multiple
+-- titles, based on part 1
 -- Select duplicates based on emp_no
---choose only the latest from_date
+--choose only the latest title of the employee
 SELECT rts.emp_no, rts.first_name, rts.last_name,
 	rts.from_date, rts.title, rts.salary 
 INTO retirement_no_duplicates
@@ -96,13 +95,45 @@ INTO retirement_no_duplicates
 	 FROM retirement_title_salary) rts
 	 WHERE rn=1;
 
+-- Alternatively, Number of [titles] Retiring 
+-- Conditions: born between 1952-1955, 
+-- hired between 1982-1985,
+-- STILL PRESENTLY EMPLOYED 
+SELECT e.emp_no, e.first_name, 
+	e.last_name, ti.title, ti.from_date,
+	s.salary
+INTO retirement_title_salary_2
+FROM employees AS e
+INNER JOIN titles AS ti
+ON (e.emp_no = ti.emp_no)
+INNER JOIN salaries AS s
+ON (ti.emp_no = s.emp_no)
+WHERE e.birth_date BETWEEN '1952-01-01' AND '1955-12-31'
+AND e.hire_date BETWEEN '1985-01-01' AND '1988-12-31'
+AND ti.to_date = '9999-01-01'
+
 -- Title frequency and ordered by from_date
+-- Derived from question 1, where 
+-- employees to_date is NOT taken into account,
+-- and titles were de-duplicated
+-- This output is NOT included in the 
+-- technical report
 SELECT title, count(title), 
 	MAX(from_date) AS from_date
 INTO titles_by_date
 FROM retirement_no_duplicates
 GROUP BY title
 ORDER BY from_date DESC
+
+-- This is the title count where retiring
+-- employees are all currently employed. 
+SELECT title, count(title), 
+	MAX(from_date) AS from_date
+INTO titles_by_date_2
+FROM retirement_title_salary_2
+GROUP BY title 
+ORDER BY from_date DESC
+
 
 --Decide mentor candidates
 SELECT e.emp_no, e.first_name, 
@@ -117,7 +148,3 @@ ON (ti.emp_no = s.emp_no)
 WHERE e.birth_date BETWEEN '1965-01-01' 
 	AND '1965-12-31'
 AND ti.to_date = '9999-01-01';
-
-	 
-
-	
