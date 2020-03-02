@@ -54,10 +54,10 @@ To find out total number of titles for the full retirement list in descending or
 
 The highest numbers are in Engineering department.
 
-__Note: the data is selected from ONLY those who are still currently employed. 
+__Note: the data is selected from ONLY those who are still currently employed. Therefore the total is 33,118.__
 
 
-<img alt = "title_bydate" src = https://github.com/pegkhiev/PH_Analysis/blob/master/Challenge/title_by_date.png>
+<img alt = "titles_by_date" src = https://github.com/pegkhiev/PH_Analysis/blob/master/Challenge/titles_by_date_2.png>
 
 ## Mentor Candidates 
 
