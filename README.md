@@ -40,12 +40,11 @@ First the sub-query is to apply row_number() for emp_no that are partitioned and
 
 __The total number of employees after de-duplication is 41,380.__
 
-### Note: However as the FULL RETIREMENT LIST does not take into account the employment date, so even after the deduplication, some employees could have already left the company.  Therefore this number is only accurate as to deduplicating "full retirement list", but is NOT accurate in excluding those who have already left. This is included in my Further Analysis section.  This section is mainly to show the use of a different type of query. 
+### Note: However as the FULL RETIREMENT LIST does not take into account the employment date, so even after the deduplication, some employees could have already left the company.  Therefore this number is only accurate as to deduplicating "full retirement list", but is NOT accurate in excluding those who have already left. As noted in the above section, the actual number of retiring eligible employees is only 33,118.  This section is mainly to show the use of a different type of query. 
 
 <img alt = "query_deduplication" src = https://github.com/pegkhiev/PH_Analysis/blob/master/Challenge/query_deduplication.png>
 
 <img alt = "deduplicated_table" src = https://github.com/pegkhiev/PH_Analysis/blob/master/Challenge/deduplicated_retirement.png>
-
 
 
 ## Titles ordered by date 
